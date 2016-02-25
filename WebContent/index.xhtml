@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/temple/template.xhtml">
+	<ui:define name="header">
+		<ui:include src="/temple/header.xhtml"></ui:include>
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="shop-homepage.css" />
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 padding-right">
+
+					<div class="row carousel-holder">
+						<h:form prependId="false">
+							<ui:repeat var="product"
+								value="#{productBean.productlistbycategory}">
+
+								<div class="col-sm-3 col-lg-3 col-md-3">
+									<div class="thumbnail">
+										<img class="productImg" src="#{product.img}" alt="No Image Available"></img>
+										<div class="caption">
+											<h4 class="pull-right">#{product.price}</h4>
+											<h4>
+												<a href="#">#{product.productname}</a>
+											</h4>
+											<p>#{product.description}.</p>
+										</div>
+										<div class="ratings">
+											<p>
+												<h:commandLink action="#{userBean.addtocart}"
+													class="quantity">
+													<h:graphicImage library="image" name="add.jpg"
+														class="quantity"></h:graphicImage>
+													<f:param name="product" value="#{product}"></f:param>
+												</h:commandLink>
+												<span><h:inputText value="#{product.quantity}"
+														style="margin-left: 4%; float: left; text-align: center;"
+														size="2" disabled="true" /></span>
+
+												<h:commandLink action="#{userBean.removeFromCart}"
+													class="quantity">
+													<h:graphicImage library="image" name="minus.jpg"
+														class="quantity" style="margin-left: 25%;"></h:graphicImage>
+													<f:param name="product" value="#{product}"></f:param>
+												</h:commandLink>
+											</p>
+											<br />
+										</div>
+										<div class="ratings" style="margin-top: 5%;">
+
+											<p>Status : #{product.productStatus.status}</p>
+										</div>
+									</div>
+								</div>
+
+							</ui:repeat>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/temple/footer.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
+</html>

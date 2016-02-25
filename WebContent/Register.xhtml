@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputScript library="js" name="jquery.js"></h:outputScript>
+	<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+	<h:outputScript library="js" name="validations.js"></h:outputScript>
+	<h:outputStylesheet library="css" name="shop-homepage.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="font-awesome.min.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="responsive.css" />
+	<title>Register Here</title>
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="col-sm-4">
+			<div class="login-form col-sm-6">
+				<h:form>
+					<h2>Register to new account</h2>
+
+					<div align="center">
+						All fields with <sup style="color: red;">*</sup> are mandatory.
+					</div>
+
+					<div>
+						<p style="float: left">
+							Enter Name : <sup style="color: red;">*</sup>
+						</p>
+						<h:inputText id="firstname" size="20" required="true"
+							requiredMessage="Please enter first name"
+							p:placeholder="First name" p:maxlength="15" value="">
+						</h:inputText>
+						<h:inputText id="lastname" size="20" required="true"
+							requiredMessage="Please enter last name" p:maxlength="15"
+							p:placeholder="Last name" value="">
+
+						</h:inputText>
+						<h:message id="firstnamemessage" for="firstname"
+							style="color: red;"></h:message>
+						<h:message id="lastnamemessage" for="lastname" style="color: red;"></h:message>
+					</div>
+					<p>
+						Email:<sup style="color: red;">*</sup>
+					</p>
+					<h:inputText id="yash_emp_id" name="empId" size="43"
+						required="true" requiredMessage="Please enter yash ID"
+						p:placeholder="100XXXX" p:maxlength="7"
+						validatorMessage="Enter 7 digits" value="">
+						<f:validateLength minimum="7" maximum="7" />
+					</h:inputText>
+					<h:message for="yash_emp_id" style="color: red;"></h:message>
+					<span id="errmsg" style="color: red;"></span>
+					Address<sup style="color: red;">*</sup>
+					<h:inputText id="street" required="true"
+						requiredMessage="Please enter Street Name"
+						p:placeholder="Street Name" p:maxlength="30" value=""></h:inputText>
+					<h:message id="streetmessage" for="street" style="color: red;"></h:message>
+					<p>
+						Enter City :<sup style="color: red;">*</sup>
+					</p>
+					<h:inputText id="city" required="true"
+						requiredMessage="Please enter city" p:placeholder="Enter City"
+						p:maxlength="20" value=""></h:inputText>
+					<h:inputText id="pincode" required="true"
+						requiredMessage="Please enter pincode"
+						validatorMessage="Please enter 6 digit pincode"
+						p:placeholder="45XXXX" p:maxlength="6" value="">
+						<f:validateLength minimum="6" maximum="6" />
+					</h:inputText>
+
+					<h:message id="citymessage" for="city" style="color: red;"></h:message>
+					<h:message for="pincode" style="color: red;"></h:message>
+					<span id="pincodemessage"></span>
+					<p>
+						Enter State :<sup style="color: red;">*</sup>
+					</p>
+					<h:inputText id="state" size="43" required="true"
+						requiredMessage="Please enter state" p:placeholder="Enter State"
+						p:maxlength="20" value=""></h:inputText>
+					<h:message id="statemessage" for="state" style="color: red;"></h:message>
+					<p>
+						Enter Mobile No.:<sup style="color: red;">*</sup>
+					</p>
+					<h:inputText id="mobileNumber" size="43" required="true"
+						requiredMessage="Please enter mobile number"
+						validatorMessage="10 digits are requried"
+						p:placeholder="XXX9878XXX" p:maxlength="10" value="">
+						<f:validateLength minimum="10" maximum="10" />
+					</h:inputText>
+					<h:message for="mobileNumber" style="color: red;"></h:message>
+					<span id="mobileerror" style="color: red"></span>
+					<p>
+						User Name: <sup style="color: red;">*</sup>
+					</p>
+					<h:inputText id="username" size="20" required="true"
+						requiredMessage="Enter user name" p:placeholder="User name"
+						p:maxlength="15" value="">
+					</h:inputText>
+					<p>
+						Password: <sup style="color: red;">*</sup>
+					</p>
+					<h:inputSecret id="password" size="20" required="true"
+						requiredMessage="Enter Password" p:placeholder="Password"
+						p:maxlength="15" value="">
+					</h:inputSecret>
+					<p>
+						Re-Enter Password: <sup style="color: red;">*</sup>
+					</p>
+					<h:inputSecret id="repassword" size="20" required="true"
+						requiredMessage="Re-Enter Password" p:placeholder="Re-Password"
+						p:maxlength="15" value="">
+					</h:inputSecret>
+				</h:form>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

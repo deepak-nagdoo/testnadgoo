@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/temple/template.xhtml">
+	<ui:define name="header">
+		<ui:include src="/temple/header.xhtml"></ui:include>
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="shop-homepage.css" />
+		<h:form prependId="false">
+			<div align="center">
+				<table>
+					<ui:repeat var="order" value="#{userBean.userorders}">
+						<tr id="parenthead">
+							<td colspan="4" align="center">
+								<div align="center">
+									<table>
+										<tr class="cart_menu">
+											<th>Product Name</th>
+											<th>Price</th>
+											<th>Quantity</th>
+											<th>Sum</th>
+											<th>status</th>
+										</tr>
+										<ui:repeat var="orderlist" value="#{order.orderlistlist}">
+											<tr>
+												<td>#{orderlist.product.productname}</td>
+												<td>#{orderlist.product.price}</td>
+												<td>#{orderlist.quantity}</td>
+												<td>#{orderlist.sum}</td>
+												<td>#{orderlist.orderStatus.status}</td>
+											</tr>
+										</ui:repeat>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr id="parenttail">
+							<td>Order Number : #{order.ordernumber}</td>
+							<td>Order Date : #{order.date}</td>
+							<td>Total : #{order.total}</td>
+							<td>Status : #{order.orderStatus.status} <a href="#" class="cancelOrder #{order.orderStatus.status} #{order.ordernumber} "> Cancel </a>  <h:commandButton
+									 value="Cancel" class="#{order.ordernumber} hideComponent " action="#{userBean.cancelOrder}">
+									<f:param name="order" value="#{order}"></f:param>
+								</h:commandButton></td>
+						</tr>
+
+					</ui:repeat>
+				</table>
+			</div>
+		</h:form>
+				<div id="cancelOrderModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Confirm Order Cancel</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12">
+          <label>Do You Want To Cancel Order Number : <span id="orderNumModal"></span> </label>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeOrderCancelModal">Close</button>
+        <button type="button" class="btn btn-default" id="confirmOrderCancelModal">Confirm Detail</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.canceled').addClass('hideComponent');
+				
+				var ordNum;
+			
+				$('.inprocess').on('click',function(){
+					var str = $(this).attr('class');
+					ordNum = str.substring(22,str.length);
+					$('#orderNumModal').text(ordNum);
+					$('#cancelOrderModal').modal('show');
+				});
+				
+				$('#confirmOrderCancelModal').on('click',function(){
+					alert("."+ordNum+",.hideComponent");
+					$("."+ordNum+",.hideComponent").click();
+				});
+
+			});
+			
+		</script>
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/temple/footer.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,104 @@
+/*!
+ * Start Bootstrap - Shop Homepage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+body {
+	padding-top: 70px;
+	/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.slide-image {
+	width: 100%;
+}
+
+.carousel-holder {
+	margin-bottom: 30px;
+}
+
+.carousel-control, .item {
+	border-radius: 4px;
+}
+
+.caption {
+	height: 130px;
+	overflow: hidden;
+}
+
+.caption h4 {
+	white-space: nowrap;
+}
+
+.thumbnail img {
+	width: 100%;
+}
+
+.ratings {
+	padding-right: 10px;
+	padding-left: 10px;
+	color: #d17581;
+	padding-left: 30%;
+}
+
+.thumbnail {
+	padding: 0;
+}
+
+.thumbnail .caption-full {
+	padding: 9px;
+	color: #333;
+}
+
+footer {
+	margin: 50px 0;
+}
+
+.quantity {
+	width: 10%;
+	margin-left: 0%;
+	float: left;
+}
+
+span.quantity {
+	width: 10%;
+	margin-left: 0%;
+	float: left;
+	align-content: center;
+	margin-top: 1%;
+	margin-left: 3%;
+	margin-right: -3%;
+}
+
+.disable {
+	pointer-events: none;
+	cursor: default;
+}
+
+#content{
+	margin-top:10%;
+}
+
+table {
+	width: 96%;
+	border-collapse: collapse;
+	border: 1px solid black;
+	align: center;
+}
+Zebra striping
+tr:nth-of-type(odd) {
+	border: 1px solid white;
+	background: #eee;
+}
+
+th {
+	background: #333;
+	color: white;
+	font-weight: bold;
+	border: 1px solid white;
+}
+
+td, th {
+	padding: 6px;
+	border: 1px solid white;
+	text-align: left;
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/temple/template.xhtml">
+	<ui:define name="header">
+		<ui:include src="/temple/header.xhtml"></ui:include>
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="shop-homepage.css" />
+		<center>
+		<h:form prependId="false" rendered="#{not empty userBean.orderListlist}">
+		<div class="clearfix"></div>
+			<div class="col-md-12" id="orderdeliveryDetails">
+				<div class="col-md-3"> <div align="center"> Permanent Delivery Details </div> <div class="clearfix"> </div> <div class="login-form col-sm-12 col-lg-12 col-sm-12" align="left"> <label>Mobile : #{userBean.user.mobile}</label> </div> <div class="login-form col-sm-12 col-lg-12 col-sm-12" align="left"> <label > Address : #{userBean.user.address.address} </label> </div></div>
+				<div class="col-md-9"> <div align="center"> Delivery Details For Current Order </div> <div class="clearfix"></div> 	<div class="col-md-12 col-lg-12 col-sm-12">
+						<DIV class="col-md-8 col-lg-8 col-sm-8">
+							<div class="col-md-12 col-lg-12 col-sm-12">
+								<div class="login-form col-sm-12 col-lg-12 col-sm-12">
+										<div class="form-group">
+										<label for="orderContact" class="col-lg-3 control-label">
+											<div align="left">
+												Mobile:<sup style="color: red;">*</sup>
+											</div>
+										</label>
+										<div class="col-lg-9 col-lg-9 col-sm-9">
+									 		<h:inputText id="orderContact" size="10" 
+												requiredMessage="Please enter mobile number"
+												p:placeholder="XXX9878XXX" p:maxlength="10"
+												class="form-control" value="#{userBean.orderContact}">
+											</h:inputText>
+											<h:message for="orderContact" style="color: red;"></h:message>
+											<span id="ordermobileerror" style="color: red"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="orderAddress" class="col-lg-3 control-label">
+											<div align="left">
+												Address<sup style="color: red;">*</sup>
+											</div>
+										</label>
+										<div class="col-lg-9 col-lg-9 col-sm-9">
+											<h:inputTextarea id="orderAddress" 
+												requiredMessage="Please enter Address"
+												p:placeholder="Address" p:maxlength="60"
+												class="form-control" rows="5" cols="10"
+												value="#{userBean.orderAddress}"></h:inputTextarea>
+											<h:message id="orderaddressmessage" for="orderAddress"
+												style="color: red;"></h:message>
+										</div>
+									</div>
+								</div>
+							</div>
+						</DIV>
+					</div>
+			</div>
+			</div>
+			<table border="1">
+				<tr>
+					<th>Product Name</th>
+					<th>Price</th>
+					<th>Qunatity</th>
+					<th>Sum</th>
+					<th>Action</th>
+				</tr>
+				<ui:repeat var="orderlist" value="#{userBean.orderListlist}">
+					<tr>
+						<td>#{orderlist.product.productname}</td>
+						<td>#{orderlist.product.price}</td>
+						<td><h:commandLink action="#{userBean.addtoorderlist}"
+								>
+								<h:graphicImage library="image" name="add.jpg" class="quantity" style="width:1%"></h:graphicImage>
+								<f:param name="orderlist" value="#{orderlist}"></f:param>
+							</h:commandLink> <span style="margin-left: -3%;">#{orderlist.product.quantity}
+						</span> <h:commandLink action="#{userBean.removefromorderlist}"
+								>
+								<h:graphicImage library="image" name="minus.jpg"
+									class="quantity" style="width: 1%; margin-left: 3%;"></h:graphicImage>
+								<f:param name="orderlist" value="#{orderlist}"></f:param>
+							</h:commandLink></td>
+						<td>#{orderlist.sum}</td>
+						<td><h:commandLink action="#{userBean.removeItem}"
+								class="quantity">
+								<h:graphicImage library="image" name="remove.png"
+									class="quantity" style="width: 75%;"></h:graphicImage>
+								<f:param name="orderlist" value="#{orderlist}"></f:param>
+							</h:commandLink></td>
+					</tr>
+				</ui:repeat>
+				<tr>
+					<td align="center" colspan="5"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="5"></td>
+				</tr>
+				<tr>
+					<th colspan="3" align="right">Total Amount</th>
+					<th align="center" colspan="2">#{userBean.payamount}</th>
+				</tr>
+				<tr>
+					<th align="center" colspan="5" style="text-align: center;"><a href="#" id="placeOrder" >Place Order</a></th>
+				</tr>
+			</table>
+			
+			<h:commandButton action="#{userBean.placeOrder}" class="hideComponent" id="placeOrderHidden"/>
+			
+		</h:form></center>
+		
+		<div id="showOrderDeliveryDetail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Confirm Delivery Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-3 col-lg-3 col-sm-3">
+          <label>Mobile Number:</label>
+        	</div>
+        	<div class="col-md-9 col-lg-9 col-sm-9">
+        	<label><span id="modalOrderContact"></span></label>
+        	</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-lg-3 col-sm-3">
+        	<label>Delivery Address:</label>
+        	</div>
+        	<div class="col-md-9 col-lg-9 col-sm-9">
+        	<label><span id="modalOrderAddress"></span> </label>
+        	</div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeOrderModal">Close</button>
+        <button type="button" class="btn btn-default" id="confirmOrderModal">Confirm Detail</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+		
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$('#closeOrderModal').on('click',function(){
+					$('#orderContact').val('');
+					$('#orderAddress').val('');
+				});
+				
+				$('#confirmOrderModal').on('click',function(){
+					$('#placeOrderHidden').click();
+				});
+				
+				$(document).on('click','#placeOrder',function(){
+					if($('#orderContact').val()=='' || $('#orderContact').val()==null){
+						$('#modalOrderContact').text('#{userBean.user.mobile}');
+					}else $('#modalOrderContact').text($('#orderContact').val());
+					if($('#orderAddress').val()=='' || $('#orderAddress').val()==null){
+						$('#modalOrderAddress').text('#{userBean.user.address.address}');
+					} else $('#modalOrderAddress').text($('#orderAddress').val());
+
+					$('#showOrderDeliveryDetail').modal('show');
+				});
+				
+				if(''=='#{userBean.checkuser}'){
+					$('#orderdeliveryDetails').addClass('hideComponent');
+				}
+			});
+		</script>
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/temple/footer.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
+</html>

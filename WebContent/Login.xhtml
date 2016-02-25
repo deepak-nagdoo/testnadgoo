@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/temple/template.xhtml">
+	<ui:define name="header">
+		<ui:include src="/temple/header.xhtml"></ui:include>
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="shop-homepage.css" />
+<div class="col-md-12 col-lg-12 col-sm-12">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-5 col-sm-offset-1" style="margin-left: 5px;">
+				<div class="login-form col-sm-12">
+					<h2>Login to your account</h2>
+					<h:form prependId="false" class="form-horizontal">
+
+						<div class="form-group">
+						<label for="inputUsername" class="col-lg-2 control-label">Username</label>
+						 <div class="col-lg-10">
+						<h:inputText id="username" size="20" required="true"
+							requiredMessage="Enter User Name" p:placeholder="User Name"
+							p:maxlength="15" value="#{userBean.username}" class="form-control">
+						</h:inputText>
+						<h:message id="usernamemessage" for="username" style="color: red;"></h:message> </div></div>
+						<div class="form-group">
+						<label for="inputPassword" class="col-lg-2 control-label">Password</label>
+						<div class="col-lg-10">
+						<h:inputSecret id="password" size="20" required="true"
+							requiredMessage="Enter Password" p:placeholder="Password"
+							p:maxlength="15" value="#{userBean.password}" class="form-control">
+						</h:inputSecret>
+						<h:message id="passwordmessage" for="password" style="color: red;"></h:message></div></div>
+						<h:commandButton value="Login" action="#{userBean.validateUser}"
+							class="btn btn-default" />
+					</h:form>
+				</div>
+			</div>
+			<div class="col-sm-1">
+				<h2 class="or">OR</h2>
+			</div>
+			<div class="col-sm-6 col-sm-offset-1" style="margin-left: -38px;">
+				<div class="login-form col-sm-12">
+						<h2>Register to new account</h2>
+					<h:form class="form-horizontal">
+
+						<div align="center">
+							All fields with <sup style="color: red;">*</sup> are mandatory.
+						</div>
+							<div class="form-group">
+							<label for="inputName" class="col-lg-3 control-label"> <div class="col-lg-12" align="left">Name: <sup style="color: red;">*</sup> </div> </label>
+							<div class="col-lg-9">
+							<h:inputText id="firstname" size="20" required="true"
+								requiredMessage="Please enter name"
+								p:placeholder="Name" p:maxlength="15" value="#{userBean.registerUser.firstname}" class="form-control">
+							</h:inputText>
+							<h:message id="firstnamemessage" for="firstname"
+								style="color: red;"></h:message></div></div>
+						<div class="form-group">
+					<label for="inputEmail" class="col-lg-3 control-label">	<div class="col-lg-12" align="left">	Email:<sup style="color: red;">*</sup> </div> </label>
+						<div class="col-lg-9">
+						<h:inputText id="yash_emp_id" type="email" name="empId" size="43"
+							required="true" requiredMessage="Please enter email"
+							p:placeholder="xyz02@pqr.com" 
+							validatorMessage="Enter valid email-id" value="#{userBean.registerUser.email}" class="form-control">
+						</h:inputText>
+						<h:message for="yash_emp_id" style="color: red;"></h:message></div></div>
+					<div class="form-group"> <label for="inputAddress" class="col-lg-3 control-label"> <div class="col-lg-12" align="left"> Address<sup style="color: red;">*</sup> </div> </label>
+						<div class="col-lg-9">
+						<h:inputText id="address" required="true"
+							requiredMessage="Please enter Address"
+							p:placeholder="Address" p:maxlength="30" value="#{userBean.registerUser.address.address}" class="form-control"></h:inputText>
+						<h:message id="addressmessage" for="address" style="color: red;"></h:message></div></div>
+						<div class="form-group">
+					<label for="inputMobile" class="col-lg-3 control-label"> <div class="col-lg-12" align="left"> Mobile No.:<sup style="color: red;">*</sup> </div> </label>
+					<div class="col-lg-9">
+						<h:inputText id="mobileNumber" size="43" required="true"
+							requiredMessage="Please enter mobile number"
+							validatorMessage="10 digits are requried"
+							p:placeholder="XXX9878XXX" p:maxlength="10" value="#{userBean.registerUser.mobile}" class="form-control">
+							<f:validateLength minimum="10" maximum="10" />
+						</h:inputText>
+						<h:message for="mobileNumber" style="color: red;"></h:message>
+						<span id="mobileerror" style="color: red"></span></div></div>
+						<div class="form-group" >
+						<label for="inputPassword" class="col-lg-3 control-label" > <div class="col-lg-12" align="left">	Password: <sup style="color: red;">*</sup> </div> </label>
+						<div class="col-lg-9">
+						<h:inputSecret id="password" size="20" required="true" name="password"
+							requiredMessage="Enter Password" p:placeholder="Password"
+							p:maxlength="15" value="#{userBean.registerUser.password}" class="form-control">
+						</h:inputSecret></div></div>
+						<div class="form-group">
+					<label for="inputRePassword" class="col-lg-3 control-label">	<div class="col-lg-12" align="left">Re-Enter </div><div class="col-lg-12" align="left">Password: <sup style="color: red;">*</sup> </div>	</label>
+						<div class="col-lg-9">
+						<h:inputSecret id="repassword" name="repassword" size="20" required="true"
+							requiredMessage="Re-Enter Password" p:placeholder="Re-Password"
+							p:maxlength="15" class="form-control">
+						</h:inputSecret ></div></div>
+						<h:commandButton value="Register" action="#{userBean.registerNewUser}" 
+							class="btn btn-default"  />
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/temple/footer.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
+</html>

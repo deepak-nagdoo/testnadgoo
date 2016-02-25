@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:outputScript library="js" name="jquery.js"></h:outputScript>
+<h:outputScript library="js" name="bootstrap.min.js"></h:outputScript>
+<h:outputScript library="js" name="validations.js"></h:outputScript>
+<h:outputStylesheet library="css" name="shop-homepage.css" />
+<h:outputStylesheet library="css" name="bootstrap.min.css" />
+<h:outputStylesheet library="css" name="font-awesome.min.css" />
+<h:outputStylesheet library="css" name="main.css" />
+<h:outputStylesheet library="css" name="responsive.css" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		if ('#{userBean.value4}' != 'Logout') {
+			$('#logouticon').hide();
+		}
+	});
+</script>
+<DIV class="col-md-12 col-lg-12 col-sm-12">
+<DIV class="navbar-fixed-top">
+	<nav class="navbar navbar-default" role="navigation">
+		<!--header-->
+		<div class="container-fluid">
+			<!--header_top-->
+			<div class="navbar-header col-md-12 col-lg-12 col-sm-12">
+				<h:form>
+					<ul class="nav navbar-nav navbar-right">
+						<li><h:commandLink action="Account.xhtml"
+								rendered="#{not empty userBean.checkuser}">
+								<i class="fa fa-user"></i>Account </h:commandLink></li>
+						<li><a href="#{userBean.value1}.xhtml"
+							class="#{userBean.disablevalue1}"><i class="fa fa-star"></i>#{userBean.value1}
+								<SPAN id="items">#{userBean.items}</SPAN></a></li>
+						<li><a href="#{userBean.value2}.xhtml"
+							class="#{userBean.disablevalue2}"> <i
+								class="fa fa-crosshairs"></i>#{userBean.value2}
+						</a></li>
+						<li><h:commandLink action="#{userBean.logout}"
+								class="#{userBean.disablevalue4}">
+								<i class="fa fa-crosshairs" id="logouticon"></i> #{userBean.value4}</h:commandLink>
+						</li>
+						<li><a href="ViewOrders.xhtml"><i
+								class="fa fa-shopping-cart"></i> View Orders</a></li>
+					</ul>
+				</h:form>
+
+			</div>
+
+		</div>
+		<div class="clearfix"></div>
+		<DIV class="col-md-8 col-lg-8 col-sm-8">
+			<h:form>
+				<ul class="top-menu">
+					<li><a href="#">Home</a></li>
+					<ui:repeat var="category" value="#{productBean.categorylist}">
+						<li><h:commandLink action="#{productBean.getProductbyid}"
+								value="#{category.category}">
+								<f:param name="category" value="#{category}"></f:param>
+							</h:commandLink>
+							<ul>
+								<ui:repeat var="subcategory" value="#{category.subcategorylist}">
+									<li><h:commandLink
+											action="#{productBean.getProductbysubid}"
+											value="#{subcategory.subcategory}">
+											<f:param name="subcategory" value="#{subcategory}"></f:param>
+										</h:commandLink></li>
+								</ui:repeat>
+							</ul></li>
+
+					</ui:repeat>
+
+				</ul>
+			</h:form>
+		</DIV>
+		<div class="col-md-4 col-lg-4 col-sm-4">
+			<ul class="nav navbar-nav" style="float: right">
+				<li><h:commandButton type="button" class="btn uploadBtn"
+						data-toggle="modal" data-target="#uploadModal" value="Upload
+						Order">
+						<f:ajax listener="#{userBean.checkUserLogin}" event="click" onevent="callToUploadFile" immediate="true"/>
+						</h:commandButton></li>
+				<li><button type="button" class="btn emergancyBtn"
+						data-toggle="modal" data-target="#emergencyModal">Emergency
+						Order</button></li>
+			</ul>
+		</div>
+		<div class="clearfix"></div>
+
+	</nav>
+</DIV>
+
+<!-- small message modal -->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="messageModal">
+  <div class="modal-dialog modal-sm" style="height:200px; width:30%;">
+    <div class="modal-content">
+    <DIV align="center">#{param.uploadMessage}</DIV>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="emergencyModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"></button>
+				<h4 class="modal-title">Emergancy Order</h4>
+			</div>
+			<div class="modal-body">
+				<p>Call us directly for immediate order : 9424479310</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div id="uploadModal" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="width: 50%;">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"></button>
+				<div style="text-transform: uppercase;text-align: center;">Welcome <h:outputText value="#{productBean.clientName}"></h:outputText> </div> 
+				<h4 class="modal-title">Upload your order ! </h4>
+			</div>
+			<div class="modal-body" style="height: 325px;">
+				<h:form class="form-horizontal" enctype="multipart/form-data"
+					id="flieUpload" prependId="false">
+					<div class="col-md-12 col-lg-12 col-sm-12">
+						<DIV class="col-md-8 col-lg-8 col-sm-8">
+							<div class="col-md-12 col-lg-12 col-sm-12">
+								<div class="login-form col-sm-12 col-lg-12 col-sm-12">
+										<div class="form-group">
+										<label for="clientContact" class="col-lg-3 control-label">
+											<div align="left">
+												Mobile:<sup style="color: red;">*</sup>
+											</div>
+										</label>
+										<div class="col-lg-9 col-lg-9 col-sm-9">
+											<h:inputText id="clientContact" size="10" required="true"
+												requiredMessage="Please enter mobile number"
+												validatorMessage="10 digits are requried"
+												p:placeholder="XXX9878XXX" p:maxlength="10"
+												class="form-control" value="#{productBean.clientContact}">
+												<f:validateLength minimum="10" maximum="10" />
+											</h:inputText>
+											<h:message for="mobileNumber" style="color: red;"></h:message>
+											<span id="mobileerror" style="color: red"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="clientAddress" class="col-lg-3 control-label">
+											<div align="left">
+												Address<sup style="color: red;">*</sup>
+											</div>
+										</label>
+										<div class="col-lg-9 col-lg-9 col-sm-9">
+											<h:inputTextarea id="clientAddress" required="true"
+												requiredMessage="Please enter Address"
+												p:placeholder="Address" p:maxlength="60"
+												class="form-control" rows="5" cols="10"
+												value="#{productBean.clientAddress}"></h:inputTextarea>
+											<h:message id="addressmessage" for="address"
+												style="color: red;"></h:message>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</DIV>
+						<DIV class="col-md-4">
+							<DIV class="col-md-12 col-lg-12 col-sm-12" style="height: 100px">
+								<div class="fileinputs">
+									<div class="uploadBtnDiv">Select File</div>
+									<SPAN id="fileName"></SPAN>
+									<h:inputFile id="file" style="display:none"
+										value="#{productBean.clientFile}">
+									</h:inputFile>
+								</div>
+							</DIV>
+							<DIV class="clearfix"></DIV>
+							<DIV class="col-md-12" style="height: 100px">
+								<h:commandButton value="Upload"
+									action="#{productBean.uploadOrderFile}" class="btn btn-default" />
+							</DIV>
+						</DIV>
+					</div>
+				</h:form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+</DIV>
+<SCRIPT type="text/javascript">
+
+	function callToUploadFile(){
+		if('#{param.uploadMessage}'==''){
+		$('#uploadModal').modal('show');}
+	}
+	
+	$(document).ready(function(){
+		if('#{param.uploadMessage}'!=''){
+			$('#messageModal').modal('show');
+		setInterval(function(){
+			$('#messageModal').modal('hide');
+		}, 3000);
+		}
+	});
+	
+	$(document).on('click', '.uploadBtnDiv', function() {
+		$('#file').click();
+	});
+	$(document).on('change','#file',function() {
+		var file = $('input[type=file]')[0].files[0];
+		var reg = new RegExp(/(.jpg)$/i);
+		if(reg.test(file.name)){
+			$('#fileName').text('Selected : '+ $('input[type=file]')[0].files[0].name);				
+		}
+		else{
+			alert('please select only jpg image file');
+		}
+	});
+</SCRIPT>
+</html>
